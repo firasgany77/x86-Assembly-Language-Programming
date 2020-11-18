@@ -25,17 +25,18 @@
                             ;across function calls) - caller-saved
                             ; the EAX, EDX, and ECX are to be free for use within a procedure or function,
                             ;and need not be preserved[citation needed].
-                            #As the name implies, these general-purpose registers usually hold temporary (volatile) information,
+                            ;As the name implies, these general-purpose registers usually hold temporary (volatile) information,
                             ;that can be overwritten by any subroutine.
 
                             ;lTherefore, it is the caller's responsibility to push each of these registers onto the stack, 
                             ;if it would like to restore their values after a subroutine call.
 
               xor eax, eax ; to make sure eax is not zero
+
               mov ecx, [ebp+8]     ;ecx = 'a'
               mov edx, [ebp+12]    ;edx = 'b'
 
-              or edx, edi          ; we are checking the argument 'b' in order to avoid division by zero condition.
+              or edx, edx          ; we are checking the argument 'b' in order to avoid division by zero condition.
               jz InvalidDivisor
 
               imul  edx,ecx        ;edx = 'a'*'b'
@@ -60,7 +61,7 @@
               idiv dword ptr[ebp+12]
               mov ebx, [ebp+20]
               mov [ebx], eax
-              mov [ebx], [ebp+24]
+              mov  ebx, [ebp+24]
               mov [ebx], edx
               mov eax, 1           ;it means we have successfuly done the work.
 
